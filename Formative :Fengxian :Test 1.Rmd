@@ -1,0 +1,65 @@
+---
+title: "formative.rmd"
+author: "fengxian liu"
+date: "2017/10/5"
+output: html_document
+---
+
+```{r}
+install.packages("dplyr")
+```
+Open a new markdown and install the needful package.
+
+```{r}
+setwd("/Users/FX/Desktop/Test 1 Fengxian Liu")
+A1<-read.csv("HMXPC13_DI_v2_5-14-14.csv")
+A1
+```
+Upload the MITx/Harvardx dataset to R as a dataframe named D1
+
+```{r}
+A2<-filter(A1,certified=="1")
+A3<-dplyr::filter(A2, grepl('HarvardX/CS50x', course_id))
+count(A3,certified)
+```
+How many people enrolled in HarvardX/CS50x recieved certification in 2012? 
+
+
+```{r}
+A4<-filter(A1,start_time_DI=="2012-10-15")  #people who registered on 2012/10/15
+A5<-filter(A4,final_cc_cname_DI=="Columbia")   #people who are from Columbia and registered on 2012/10/15
+
+count(A5)
+count(A4)
+```
+
+How many people registered for HarvardX/CS50x from Columbia on October 15, 2012?
+
+
+```{R}
+A6<-filter(A1,final_cc_cname_DI=="Canada") #students from Canada
+D2<-select(A6,start_time_DI,userid_DI)
+
+```
+
+Create a new data frame (D2) that includes student ID and registration date for all students from a country of your choice
+
+
+```{r}
+D3<-select(A1,start_time_DI,userid_DI)
+
+
+```
+Create a new data frame (D3) in which the column names are the registration dates, with one column containing the student ids and all other cells indicating a 1 if the student registered on that date or an NA if they did not
+
+
+
+Now make the row names of D3 the student ids on your new data frame and remove the user id column from your data frame
+
+Convert your data frame to a matrix (M1)
+
+Create a new matrix which is the transposed version of your matrix (M2)
+
+Create a third matrix (M3) that is a student by student matrix where the cells in the matrix represent if two studentes registered on the same day (This will take a lot of processing power, you may not be able to complete it if you have a large number of students)
+
+Convert the diagonal of your matrix into NAs
